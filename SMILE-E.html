@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Smile</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Rubik", sans-serif;
+        }
+
+        body{
+            background-color: #fab22e;
+        }
+
+        .wrapper{
+            width: 80vmin;
+            padding: 40px 50px;
+            background-color: #222;
+            position: absolute;
+            transform: translate(-50% , -50%);
+            top: 50%;
+            left: 50%;
+            box-shadow: 20px 20px 40px rgba(97, 63, 0, 0.4);
+            border-radius: 5px;
+        }
+
+        span{
+            display: block;
+            font-size: 100px;
+            text-align: center;
+        }
+
+        p{
+            font-size: 16px;
+            color: #fff;
+            font-weight: 400;
+            text-align: center;
+            word-wrap: break-word;
+            line-height: 35px;
+            margin: 30px 0;
+            opacity: 0;
+
+        }
+        .fade{
+            opacity: 1;
+            transition: opacity 1.5s;
+        }
+
+        #btn{
+            display: block;
+            background-color: #fab22e;
+            margin: 0 auto;
+            padding: 12px 25px;
+            border: none;
+            outline: none;
+            font-weight: 400;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <span></span>
+        <p id="joke"></p>
+        <button id="btn">Get Random Smile</button>
+    </div>
+
+    <script>
+        const jokeContainer = document.getElementById("joke");
+        const btn = document.getElementById("btn");
+        const url = "https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single";
+
+        const getJoke = () => {
+            jokeContainer.classList.remove("fade");
+            fetch(url)
+            .then(data => data.json())
+            .then(item => {
+                jokeContainer.textContent = `${item.joke}`;
+                jokeContainer.classList.add("fade");
+            });
+        }
+
+        btn.addEventListener("click" , getJoke);
+
+        getJoke();
+    </script>
+</body>
+</html>
